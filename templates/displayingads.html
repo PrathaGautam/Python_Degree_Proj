@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+{% extends "templateHome.html" %}
+{% block main %}
+
+<html>
+<head>
+    <title>Advertisements</title>
+</head>
+<body>
+    <h1>Advertisements</h1>
+
+    {% for row in data %}
+    <div>
+        <a href="details?id={{ row['idad'] }}">
+            <h2>{{ row['Title'] }}</h2>
+            <img src="{{ row['Photo'] }}" alt="Ad photo" width="200">
+
+        <p><strong>Price:</strong> {{ row['Price'] }}</p>
+        <p><strong>Condition:</strong> {{ row['Condition'] }}</p>
+        <p><strong>Date Added:</strong> {{ row['Date added'] }}</p>
+
+        </a>
+
+        <div id="details-{{ row['idad'] }}" style="display: none;">
+            <p><strong>Negotiation:</strong> {{ row['Negotiation'] }}</p>
+            <p><strong>Description:</strong> {{ row['Description'] }}</p>
+
+            <p><strong>Phone Number:</strong> {{ row['Phone Number'] }}</p>
+            <p><strong>Email:</strong> {{ row['Email'] }}</p>
+        </div>
+    </div>
+    {% endfor %}
+
+</body>
+</html>
+{% endblock %}
+
+
+
+
+
+
