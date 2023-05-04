@@ -1,3 +1,37 @@
+/* for the form */
+
+.form-label {
+  display: inline-block;
+  width: 150px;
+  vertical-align: middle;
+}
+
+.form-input {
+  display: inline-block;
+  width: 200px;
+  vertical-align: middle;
+}
+
+.form-submit {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #3ed043;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+/* for errors: */
+
+    .error {
+      color: red;
+      font-size: small;
+    }
+
+
+
 /* Reset Styles */
 * {
   margin: 0;
@@ -10,7 +44,7 @@ body {
   font-family: Arial, sans-serif;
   font-size: 16px;
   line-height: 1.5;
-  color: #ff0202;
+  color: #038ef1;
 }
 
 a {
@@ -79,10 +113,91 @@ p {
   background-color: #0062cc;
 }
 
-/* Footer Styles */
+
+/* for about us and contact us container */
 footer {
   background-color: #333;
   color: #fff;
-  padding: 1rem;
-  text-align: center;
+  padding: 5px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  font-size: 20px;
 }
+
+.footer-buttons {
+  display: flex;
+  justify-content: center;
+}
+
+.footer-buttons a {
+  color: #058cec;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+
+.topnav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #333;
+  overflow: hidden;
+  white-space: nowrap;
+
+}
+
+
+.topnav a {
+float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 25px;
+}
+
+
+
+
+nav {
+  display: inline-block;
+}
+.navbar_welcome_text {
+position: absolute;
+  top: 0;
+  right: 0;
+  margin: 14px 16px;
+  color: #f2f2f2;
+  text-align: center;
+  font-size: 16px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+  background-color: #3b6aa9;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+  background-color: #638fe0;
+  color: white;
+}
+
+.upload_ad_form {
+  position: absolute;
+  top: 100px;
+}
+
+#products-page-div {
+  margin-top: 4%;
+  margin-bottom: 4%;
+  padding: 20px;
+  background-color: #d6d5d7;
+  border: 2px solid #3fa3f5;
+}
+
+
+

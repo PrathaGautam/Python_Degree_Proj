@@ -1,6 +1,9 @@
 <!DOCTYPE html>
+
 <html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
+
+<link rel="stylesheet" href="../static/style.css">
 <title>{{ page_title }}</title>
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
@@ -21,31 +24,55 @@
 </style>
 </head>
 <body bgcolor="#A0A0A0" vlink="blue" link="blue">
-<div id="page1-div" style="position:relative;width:1440px;height:80px;">
-<p style="position:absolute;top:20px;left:90px;white-space:nowrap" class="ft10"><b>RESALE</b></p>
+<!--<div id="page1-div" style="position:relative;width:1440px;height:80px;">-->
+<!--<p style="position:absolute;top:20px;left:90px;white-space:nowrap" class="ft10"><b>RESALE ONLINE SHOP</b></p>-->
 
-<p style="position:absolute;top:20px;left:628px;white-space:nowrap" class="ft14"><a href="/home">Home</a></p>
-<p style="position:absolute;top:20px;left:889px;white-space:nowrap" class="ft16"><a href="/aboutus">About Us</a></p>
-<p style="position:absolute;top:20px;left:1229px;white-space:nowrap" class="ft17"><a href="/login">Log In</a></p>
-<p style="position:absolute;top:20px;left:1022px;white-space:nowrap" class="ft16"><a href="/contactus">Contact Us</a></p>
-<p style="position:absolute;top:20px;left:230px;white-space:nowrap" class="ft18">ONLINE&#160;SHOP</p>
-<p style="position:absolute;top:20px;left:742px;white-space:nowrap" class="ft16"><a href="/products">Products</a></p>
+<!--<p style="position:absolute;top:20px;left:628px;white-space:nowrap" class="ft14"><a href="/home">Home</a></p>-->
+<!--	{% if logged_in %}-->
+<!--<p style="position:absolute;top:20px;left:1229px;white-space:nowrap" class="ft17"><a href="/logout">Log Out</a></p>-->
+<!--	<p style="position:absolute;top:20px;left:1100px;white-space:nowrap" class="ft17"><a href="/uploadads">Upload Ads</a></p>-->
+<!--	{% else %}-->
+<!--	<p style="position:absolute;top:20px;left:1229px;white-space:nowrap" class="ft17"><a href="/login">Log In</a></p>-->
+<!--	{% endif %}-->
+<!--&lt;!&ndash;<p style="position:absolute;top:20px;left:230px;white-space:nowrap" class="ft18">ONLINE&#160;SHOP</p>&ndash;&gt;-->
+<!--<p style="position:absolute;top:20px;left:742px;white-space:nowrap" class="ft16"><a href="/products">Products</a></p>-->
+<!--</div>-->
+
+<!--NEW DIV : -->
+<div class="topnav">
+  <p class="logo"><a href="#">RESALE</a></p>
+  <nav>
+      <a class="active" href="/home">HOME</a>
+	  <a href="/products">PRODUCTS</a>
+      {% if username %}
+	  <a href="/uploadads">UPLOAD ADS</a>
+	  <a href="/logout">LOG OUT</a>
+	  <div class="navbar_welcome_text">
+    <p>Welcome, {{ username }}! You are logged in.</p>
+    </div>
+      {% else %}
+        <a href="/login">LOG IN</a>
+      {% endif %}
+  </nav>
 </div>
+
+
 <!-- Main Content Section -->
 	<main>
 		{% block main %}
-		<!-- main content goes here -->
+
 		{% endblock %}
 	</main>
 
 	<!-- Footer Section -->
 	<footer>
-		{% block footer %}
-		<!-- footer content goes here -->
-		{% endblock %}
+
+			<div class="footer-buttons">
+    		<a href="/aboutus">ABOUT US</a>
+    		<a href="/contactus">CONTACT US</a>
+			</div>
+
 	</footer>
 
 </body>
 </html>
-
-

@@ -2,6 +2,16 @@
 {% block main %}
 
 <html>
+<script>
+    const signUpButton = document.getElementById('submit_button');
+
+signUpButton.addEventListener('click', function()
+{
+  // Redirect the user to the new page
+  window.location.href = 'http://127.0.0.1:8000/signupButton';
+});
+
+</script>
 
 <head>
     <title>Sign Up Successful Page</title>

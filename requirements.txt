@@ -1,0 +1,8 @@
+multipart
+mysql-connector-python~=8.0.32
+PyMySQL~=1.0.2
+fastapi~=0.92.0
+Jinja2~=3.1.2
+starlette~=0.25.0
+fastapi[all]==0.92.0
+PyJWT==2.6.0

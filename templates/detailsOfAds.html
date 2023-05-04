@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% extends "templateHome.html" %}
 {% block main %}
+    <div id="products-page-div">
 <html>
 <head>
     <title>Advertisement Details</title>
@@ -10,25 +11,32 @@
 
     <h1>Advertisement Details</h1>
     <div>
-        <h2>{{ data['Title'] }}</h2>
-        <img src="" alt="Ad photo" width="200">
-        <p><strong>Price:</strong> {{ data['Price'] }}</p>
-        <p><strong>Condition:</strong> {{ data['Condition'] }}</p>
-        <p><strong>Date Added:</strong> {{ data['Date Added'] }}</p>
-        <p><strong>Negotiation:</strong> {{ data['Negotiation'] }}</p>
-        <p><strong>Description:</strong> {{ data['Description'] }}</p>
+        <h2>{{ data['title'] }}</h2>
+        <img src="uploads/{{ data['photo'] }}" alt="Ad photo" width="300">
+
+        {% if opened_by_owner==True %}
+        <br> <button class="deletebutton" onclick="deleteAd({{ data['idad'] }})">Delete Ad</button> </br>
+        <button type="submit">Edit Ad</button>
+        {% endif %}
+
+        <p><strong>Price(PLN):</strong> {{ data['price'] }}</p>
+        <p><strong>Condition:</strong> {{ data['condition'] }}</p>
+        <p><strong>Date Added:</strong> {{ data['date_added'] }}</p>
+        <p><strong>Negotiation:</strong> {{ "Yes" if data['negotiation']==1 else "No" }}</p>
+        <p><strong>Description:</strong> {{ data['description'] }}</p>
         <button onclick="toggleDetails({{ data['idad'] }})">View Contact Info</button>
     </div>
 
 
     <div id="details-{{ data['idad'] }}"style="display:none">
-        <p><strong>Phone Number:</strong> {{ data['Phone Number'] }}</p>
-        <p><strong>Email:</strong> {{ data['Email'] }}</p>
+        <p><strong>Phone Number:</strong> {{ data['phone_number'] }}</p>
+        <p><strong>Email:</strong> {{ email }}</p>
     </div>
 
 
 </body>
 </html>
+        </div>
 {% endblock %}
 
 

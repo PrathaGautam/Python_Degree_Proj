@@ -1,6 +1,10 @@
 <!DOCTYPE html>
 {% extends "templateHome.html" %}
 {% block main %}
+{% if username %}
+<p style="margin-top: 40px;">
+<!--        <h1>Welcome, {{ username }}!</h1>-->
+<!--        <p>You are logged in. (home_page.html)</p>-->
 <html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 <title>{{ title }}</title>
@@ -29,15 +33,17 @@
 <p style="position:absolute;top:400px;left:90px;white-space:nowrap" class="ft11">THIS IS HOME PAGE. This&#160;is&#160;a&#160;website&#160;that&#160;lets&#160;you&#160;sell&#160;old&#160;items&#160;that&#160;you</p>
 <p style="position:absolute;top:420px;left:90px;white-space:nowrap" class="ft11">have.&#160;You&#160;can&#160;also&#160;check&#160;other&#160;people's&#160;products&#160;and</p>
 <p style="position:absolute;top:440px;left:90px;white-space:nowrap" class="ft11">buy&#160;whatever&#160;you&#160;want.&#160;Sign&#160;up&#160;now&#160;to&#160;sell&#160;products.</p>
-<p style="position:absolute;top:700px;left:90px;white-space:nowrap" class="ft12">www.resaleyourproducts.com&#160;|&#160;@resalenow</p>
-<p style="position:absolute;top:550px;left:131px;white-space:nowrap" class="ft13"><b><a href="/signup">SIGN&#160;UP&#160;NOW</a></b></p>
+<!--<p style="position:absolute;top:700px;left:90px;white-space:nowrap" class="ft12">www.resaleyourproducts.com&#160;|&#160;@resalenow</p>-->
 
 <p style="position:absolute;top:80px;left:90px;white-space:nowrap" class="ft19">Sell&#160;your<br/>products<br/>easily&#160;here.</p>
-<!--<p style="position:absolute;top:93px;left:889px;white-space:nowrap" class="ft16">About&#160;Us</p>-->
-<!--<p style="position:absolute;top:93px;left:1229px;white-space:nowrap" class="ft17">Log&#160;in</p>-->
-<!--<p style="position:absolute;top:93px;left:1022px;white-space:nowrap" class="ft16">Contact&#160;Us</p>-->
-<!--<p style="position:absolute;top:86px;left:230px;white-space:nowrap" class="ft18">ONLINE&#160;SHOP</p>-->
-<!--<p style="position:absolute;top:93px;left:742px;white-space:nowrap" class="ft16">Products</p>-->
+ {% else %}
+  <p style="position:absolute;top:550px;left:131px;white-space:nowrap" class="ft13"><b><a href="/signup">SIGN&#160;UP&#160;NOW</a></b></p>
+    <p style="position:absolute;top:400px;left:90px;white-space:nowrap" class="ft11">THIS IS HOME PAGE. This&#160;is&#160;a&#160;website&#160;that&#160;lets&#160;you&#160;sell&#160;old&#160;items&#160;that&#160;you</p>
+<p style="position:absolute;top:420px;left:90px;white-space:nowrap" class="ft11">have.&#160;You&#160;can&#160;also&#160;check&#160;other&#160;people's&#160;products&#160;and</p>
+<p style="position:absolute;top:440px;left:90px;white-space:nowrap" class="ft11">buy&#160;whatever&#160;you&#160;want.&#160;Sign&#160;up&#160;now&#160;to&#160;sell&#160;products.</p>
+<p style="position:absolute;top:80px;left:90px;white-space:nowrap" class="ft19">Sell&#160;your<br/>products<br/>easily&#160;here.</p>
+ {% endif %}
+
 </div>
 </body>
 </html>
