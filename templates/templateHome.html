@@ -8,53 +8,37 @@
 
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
  <br/>
-<style type="text/css">
-<!--
-	p {margin: 0; padding: 0;}	.ft10{font-size:33px;font-family:Times;color:#ffffff;}
-	.ft11{font-size:17px;font-family:Times;color:#ffffff;}
-	.ft12{font-size:16px;font-family:Times;color:#ffffff;}
-	.ft13{font-size:21px;font-family:Times;color:#000000;}
-	.ft14{font-size:23px;font-family:Times;color:#cc86c8;}
-	.ft15{font-size:74px;font-family:Times;color:#ffffff;}
-	.ft16{font-size:23px;font-family:Times;color:#ffffff;}
-	.ft17{font-size:23px;font-family:Times;color:#000000;}
-	.ft18{font-size:33px;font-family:Times;color:#cc86c8;}
-	.ft19{font-size:74px;line-height:83px;font-family:Times;color:#ffffff;}
--->
-</style>
+
+
 </head>
 <body bgcolor="#A0A0A0" vlink="blue" link="blue">
-<!--<div id="page1-div" style="position:relative;width:1440px;height:80px;">-->
-<!--<p style="position:absolute;top:20px;left:90px;white-space:nowrap" class="ft10"><b>RESALE ONLINE SHOP</b></p>-->
 
-<!--<p style="position:absolute;top:20px;left:628px;white-space:nowrap" class="ft14"><a href="/home">Home</a></p>-->
-<!--	{% if logged_in %}-->
-<!--<p style="position:absolute;top:20px;left:1229px;white-space:nowrap" class="ft17"><a href="/logout">Log Out</a></p>-->
-<!--	<p style="position:absolute;top:20px;left:1100px;white-space:nowrap" class="ft17"><a href="/uploadads">Upload Ads</a></p>-->
-<!--	{% else %}-->
-<!--	<p style="position:absolute;top:20px;left:1229px;white-space:nowrap" class="ft17"><a href="/login">Log In</a></p>-->
-<!--	{% endif %}-->
-<!--&lt;!&ndash;<p style="position:absolute;top:20px;left:230px;white-space:nowrap" class="ft18">ONLINE&#160;SHOP</p>&ndash;&gt;-->
-<!--<p style="position:absolute;top:20px;left:742px;white-space:nowrap" class="ft16"><a href="/products">Products</a></p>-->
-<!--</div>-->
-
-<!--NEW DIV : -->
 <div class="topnav">
-  <p class="logo"><a href="#">RESALE</a></p>
+
   <nav>
-      <a class="active" href="/home">HOME</a>
-	  <a href="/products">PRODUCTS</a>
+		  <ul>
+      <li><a  href="/home" class="active" >HOME</a></li>
+	  <li><a  href="/products" >PRODUCTS</a></li>
       {% if username %}
-	  <a href="/uploadads">UPLOAD ADS</a>
-	  <a href="/logout">LOG OUT</a>
+			  <li><a href="/myads">MY ADS</a></li>
+	  <li><a  href="/uploadads" >UPLOAD ADS</a></li>
+			  <li><a  href="/logout" >LOG OUT</a></li>
 	  <div class="navbar_welcome_text">
     <p>Welcome, {{ username }}! You are logged in.</p>
     </div>
       {% else %}
-        <a href="/login">LOG IN</a>
+        <li><a  href="/login" >LOG IN</a></li>
       {% endif %}
+			  <li class = "search_ads_bar">
+				  <form action ="/searchads" method = "GET">
+					  <input type="text" name="keywords" placeholder="Type product name...">
+					  <button type="submit">Search</button>
+				  </form>
+			  </li>
+			  </ul>
   </nav>
 </div>
+
 
 
 <!-- Main Content Section -->

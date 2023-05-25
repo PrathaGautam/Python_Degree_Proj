@@ -10,19 +10,19 @@
 
 </head>
 <body>
-    <h1>ADVERTISEMENTS</h1>
+    <h1 style="color: #ec7505 ; text-align: center;">ADVERTISEMENTS</h1>
 
     {% for row in data %}
-    <div>
+    <div class = "products_page_content">
         <br>
-        <a href="details?id={{ row['idad'] }}">
-            <h2>{{ row['title'] }}</h2>
+        <a href="details?id={{ row['idad'] }}" style="text-decoration: none;">
+            <h2 style="color: #19a6fd;"> {{ row['title'] }} </h2>
             <img src="uploads/{{ row['photo'] }}" alt="Ad photo" width="200">
 
         <p><strong>Price:</strong> {{ row['price'] }}</p>
         <p><strong>Condition:</strong> {{ row['condition'] }}</p>
         <p><strong>Date Added:</strong> {{ row['date_added'] }}</p>
-
+        <hr>
         </a>
 
         <div id="details-{{ row['idad'] }}" style="display: none;">

@@ -9,28 +9,28 @@
 <body>
     <script src="static/script.js"></script>
 
-    <h1>Advertisement Details</h1>
+    <h1 style="color: #ec7505 ; text-align: center; font-size: 25px">ADVERTISEMENT DETAILS : </h1>
     <div>
         <h2>{{ data['title'] }}</h2>
-        <img src="uploads/{{ data['photo'] }}" alt="Ad photo" width="300">
+        <img src="/uploads/{{ data['photo'] }}" alt="Ad photo" width="300">
 
         {% if opened_by_owner==True %}
-        <br> <button class="deletebutton" onclick="deleteAd({{ data['idad'] }})">Delete Ad</button> </br>
-        <button type="submit">Edit Ad</button>
+        <br> <button class="modern_button" onclick="deleteAd({{ data['idad'] }})">Delete Ad</button>
+        <button class="modern_button" onclick="editAd({{ data['idad'] }})">Edit Ad</button>
         {% endif %}
 
-        <p><strong>Price(PLN):</strong> {{ data['price'] }}</p>
-        <p><strong>Condition:</strong> {{ data['condition'] }}</p>
-        <p><strong>Date Added:</strong> {{ data['date_added'] }}</p>
-        <p><strong>Negotiation:</strong> {{ "Yes" if data['negotiation']==1 else "No" }}</p>
-        <p><strong>Description:</strong> {{ data['description'] }}</p>
-        <button onclick="toggleDetails({{ data['idad'] }})">View Contact Info</button>
+        <p><strong>Price(PLN):</strong> <span style="color: white;">{{ data['price'] }}</span></p>
+        <p><strong>Condition:</strong> <span style="color: white;">{{ data['condition'] }}</span></p>
+        <p><strong>Date Added:</strong> <span style="color: white;">{{ data['date_added'] }}</span></p>
+        <p><strong>Negotiation:</strong> <span style="color: white;">{{ "Yes" if data['negotiation']==1 else "No" }}</span></p>
+        <p><strong>Description:</strong> <span style="color: white;">{{ data['description'] }}</span></p>
+        <button class = "modern_button" onclick="toggleDetails({{ data['idad'] }})">View Contact Info</button>
     </div>
 
 
     <div id="details-{{ data['idad'] }}"style="display:none">
-        <p><strong>Phone Number:</strong> {{ data['phone_number'] }}</p>
-        <p><strong>Email:</strong> {{ email }}</p>
+        <p><strong>Phone Number:</strong> <span style="color: white;">{{ data['phone_number'] }}</span></p>
+        <p><strong>Email:</strong> <span style="color: white;">{{ ad_email }}</span></p>
     </div>
 
 

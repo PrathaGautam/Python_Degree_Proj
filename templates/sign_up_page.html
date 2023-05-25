@@ -1,30 +1,24 @@
 {% extends "templateHome.html" %}
 {% block main %}
-<!--{% if username %}-->
-<!--<div class="navbar_welcome_text">-->
-<!--    <p>Welcome, {{ username }}! You are logged in.</p>-->
-<!--</div>-->
-<!--{% endif %}-->
+
 <head>
 	<title>Sign Up Form</title>
-	<!--<script src="../static/signup_validation.js"></script> -->
     <link rel="stylesheet" href="../static/style.css">
 </head>
 
-<div class="form-container" style="margin-top: 50px;">
+<div class="form-container-signup" style="margin-top: 50px;">
 <form action="/signup" method="post">
   <p>
     <label class="form-label" for="first_name">First Name:</label>
-    <input class="form-input" type="text" id="first_name" name="first_name">
+    <input class="form-input" type="text" id="first_name" name="first_name" value="{{ first_name }}" required>
     {% if firstname_error %}
       <span class="error">{{ firstname_error }}</span>
     {% endif %}
 
-
   </p>
   <p>
     <label class="form-label" for="last_name">Last Name:</label>
-    <input class="form-input" type="text" id="last_name" name="last_name">
+    <input class="form-input" type="text" id="last_name" name="last_name" value="{{ last_name }}">
     {% if lastname_error %}
       <span class="error">{{ lastname_error }}</span>
     {% endif %}
@@ -32,7 +26,7 @@
   </p>
   <p>
     <label class="form-label" for="email">Email:</label>
-    <input class="form-input" type="text" id="email" name="email">
+    <input class="form-input" type="text" id="email" name="email" value="{{ email }}">
     {% if email_error %}
       <span class="error">{{ email_error }}</span>
     {% endif %}
@@ -54,7 +48,7 @@
     {% endif %}
   </p>
   <p>
-    <button id = "submit_button" class="form-submit" type="submit">Submit</button>
+    <button id = "submit_button" class="form-submit" type="submit">SIGN ME UP!</button>
   </p>
 </form>
 
@@ -63,3 +57,6 @@
 
 
 {% endblock %}
+
+
+
