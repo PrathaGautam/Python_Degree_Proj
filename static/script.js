@@ -1,12 +1,5 @@
 
 
-// // Get the button element by its id
-// const button = document.getElementById("myButton");
-//
-// // Disable the button
-// button.disabled = true;
-
-
 //for view details in ad for phone number and email protection :
 function toggleDetails(id)
 {
@@ -80,16 +73,6 @@ buttons.forEach((button) => {
 });
 
 
-// function activateButton(button) {
-//   // remove active class from all buttons
-//   const buttons = document.querySelectorAll('.topnav ul li a');
-//   buttons.forEach(function(btn) {
-//     btn.classList.remove('active');
-//   });
-//
-//   // add active class to clicked button
-//   button.classList.add('active');
-// }
 
 
 

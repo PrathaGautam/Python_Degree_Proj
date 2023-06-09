@@ -15,28 +15,28 @@
 
 <div class="topnav">
 
-  <nav>
-		  <ul>
-      <li><a  href="/home" class="active" >HOME</a></li>
-	  <li><a  href="/products" >PRODUCTS</a></li>
-      {% if username %}
-			  <li><a href="/myads">MY ADS</a></li>
-	  <li><a  href="/uploadads" >UPLOAD ADS</a></li>
-			  <li><a  href="/logout" >LOG OUT</a></li>
-	  <div class="navbar_welcome_text">
-    <p>Welcome, {{ username }}! You are logged in.</p>
-    </div>
-      {% else %}
-        <li><a  href="/login" >LOG IN</a></li>
-      {% endif %}
-			  <li class = "search_ads_bar">
-				  <form action ="/searchads" method = "GET">
-					  <input type="text" name="keywords" placeholder="Type product name...">
-					  <button type="submit">Search</button>
-				  </form>
-			  </li>
-			  </ul>
-  </nav>
+	<nav>
+		<ul>
+			<li><a href="/home" class="active">HOME</a></li>
+			<li><a href="/products">PRODUCTS</a></li>
+			{% if username %}
+			<li><a href="/myads">MY ADS</a></li>
+			<li><a href="/uploadads">UPLOAD ADS</a></li>
+			<li><a href="/logout">LOG OUT</a></li>
+			<div class="navbar_welcome_text">
+				<p>Welcome, {{ username }}! You are logged in.</p>
+			</div>
+			{% else %}
+			<li><a href="/login">LOG IN</a></li>
+			{% endif %}
+			<li class="search_ads_bar">
+				<form action="/searchads" method="GET">
+					<input type="text" name="keywords" placeholder="Type product name...">
+					<button type="submit">Search</button>
+				</form>
+			</li>
+		</ul>
+	</nav>
 </div>
 
 
@@ -50,11 +50,12 @@
 
 	<!-- Footer Section -->
 	<footer>
-
 			<div class="footer-buttons">
+
     		<a href="/aboutus">ABOUT US</a>
     		<a href="/contactus">CONTACT US</a>
 			</div>
+			<p class="rights"> © Pratha Gautam. All rights reserved.<p>
 
 	</footer>
 

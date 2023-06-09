@@ -1,10 +1,8 @@
-from typing import Union
 
 import jwt
 from jwt import PyJWTError
 from fastapi import HTTPException
 from datetime import datetime, timedelta
-import copy
 
 SECRET_KEY = "0e2147c1325fcea774ea8bcb866111c6b0c773a6"
 ALGORITHM = "HS256"

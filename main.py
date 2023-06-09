@@ -1,27 +1,17 @@
-#testuser@gmail.com, pw = test
-import json
-import uuid
+# testuser@gmail.com, pw = test
 
-from fastapi import FastAPI, Request, Form, Response, Depends, File, UploadFile
-from jinja2 import Template
-from typing import Annotated, Tuple
-import mysql.connector
-from starlette.responses import HTMLResponse, JSONResponse, RedirectResponse
+import uuid
+from fastapi import FastAPI, Request, Form, Response,File, UploadFile
+from typing import Tuple
+from starlette.responses import HTMLResponse, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 import os
 from jinja2 import Environment, FileSystemLoader
 import pymysql
 import re
 from fastapi.templating import Jinja2Templates
-import mysql.connector
-from mysql.connector import errorcode
 import bcrypt
 from auth_utils import create_access_token, decode_access_token, ACCESS_TOKEN_EXPIRE_MINUTES
-from queue import Queue
-from threading import Lock
-
-
-# from sqlread2 import cursor
 
 app = FastAPI()
 
@@ -30,14 +20,13 @@ class ConnectionPool:
     def __init__(self, initial_size=5, **kwargs):
         self.kwargs = kwargs
 
-
     def get_connection(self):
         return pymysql.connect(**self.kwargs)
 
     def release_connection(self, conn):
         conn.close()
 
-# Example usage:
+
 pool = ConnectionPool(
     host='localhost',
     user='pratha',
@@ -46,10 +35,6 @@ pool = ConnectionPool(
     cursorclass=pymysql.cursors.DictCursor,
     connect_timeout=30
 )
-
-
-
-
 
 
 def query_db(query, params=None, commit=False, get_last_id=False):
@@ -67,7 +52,6 @@ def query_db(query, params=None, commit=False, get_last_id=False):
     return result
 
 
-
 # Set the directory containing the templates
 template_dir = os.path.join(os.path.dirname(__file__), 'templates')
 
@@ -82,6 +66,7 @@ templates = Jinja2Templates(directory="templates/")
 app.mount("/static", StaticFiles(directory="static"), name="static")
 
 app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
+
 
 @app.get("/")
 async def root():
@@ -103,9 +88,6 @@ async def read_ad(request: Request):
                                       {"request": request, "username": username, "data": result})
 
 
-
-
-
 @app.get("/home")
 async def x(request: Request):
     access_token = request.cookies.get("access_token")
@@ -123,7 +105,6 @@ async def x(request: Request):
         return templates.TemplateResponse("home_page.html", {"request": request, "username": None})
 
 
-
 @app.get("/aboutus")
 async def templateHome(request: Request):
     access_token = request.cookies.get("access_token")
@@ -137,7 +118,7 @@ async def templateHome(request: Request):
         return templates.TemplateResponse("about_us_page.html",
                                           {"request": request, "username": username})
     else:
-        return templates.TemplateResponse("about_us_page.html", {"request": request, "username" : None})
+        return templates.TemplateResponse("about_us_page.html", {"request": request, "username": None})
 
 
 @app.get("/contactus")
@@ -155,12 +136,14 @@ async def templateHome(request: Request):
     else:
         return templates.TemplateResponse("contact_us.html", {"request": request, "username": None})
 
+
 def get_email_from_token(access_token: str) -> str:
     access_token = access_token.split()[-1]
     token_and_email = decode_access_token(access_token)
     return token_and_email['sub']
 
-def get_username_and_id_by_email(email:str) -> Tuple[str, str]:
+
+def get_username_and_id_by_email(email: str) -> Tuple[str, str]:
     # email = get_email_from_token(access_token)
     user_params = (email,)
     result = query_db("SELECT FirstName, IdUser from users where Email = %s", user_params)
@@ -171,7 +154,6 @@ def get_username_and_id_by_email(email:str) -> Tuple[str, str]:
 
 @app.get("/details")
 async def details(request: Request):
-
     # to check if ad is of owner :
     opened_by_owner = False
     print(request.query_params)
@@ -198,7 +180,7 @@ async def details(request: Request):
         username = None
         user_id = None
 
-    #print(result)
+    # print(result)
     user_id_from_ad = result[0]['userID']
 
     if user_id == user_id_from_ad:
@@ -206,18 +188,21 @@ async def details(request: Request):
     print(f"DETAILS {user_id=} {user_id_from_ad=}")
 
     return templates.TemplateResponse("detailsofAds.html",
-                                      {"request": request, "username": username,"email":email,"ad_email":ad_email, "data": result[0], "opened_by_owner":opened_by_owner})
+                                      {"request": request, "username": username, "email": email, "ad_email": ad_email,
+                                       "data": result[0], "opened_by_owner": opened_by_owner})
     # html_content = template.render(data=result[0])
     # return HTMLResponse(content=html_content, status_code=200)
 
 
-
 @app.get("/signup")
-def form_get(request: Request, first_name: str = "", last_name: str = "", email: str ="", password: str="", repeat_password: str=""):
-    # my_dict={"firstname": "First Name:", "lastname":"Last Name:", "email":"Email", "password":"Password", "repeatpassword":"Repeat Password"}
-
-    return templates.TemplateResponse("sign_up_page.html", {"request": request, "firstname": first_name, "lastname ": last_name, "email" : email,"password" : password,"repeatpassword":repeat_password})
-
+def form_get(request: Request, first_name: str = "", last_name: str = "",
+             email: str = "", password: str = "", repeat_password: str = ""):
+    return templates.TemplateResponse("sign_up_page.html", {"request": request,
+                                                            "firstname": first_name,
+                                                            "lastname ": last_name,
+                                                            "email": email,
+                                                            "password": password,
+                                                            "repeatpassword": repeat_password})
 
 
 @app.post("/signup")
@@ -230,31 +215,31 @@ def form_post(request: Request,
     firstname_error = ""
     lastname_error = ""
     email_error = ""
-    password_error=""
-    repeat_password_error=""
+    password_error = ""
+    repeat_password_error = ""
     print(request.__dict__)
-    print("VALUES:"+"\n".join((first_name, last_name, password, repeat_password, email)))
-    if len(first_name)<1 or len(first_name)>=50:
-        firstname_error="First Name must be between 1 and 50 characters."
+    print("VALUES:" + "\n".join((first_name, last_name, password, repeat_password, email)))
+    if len(first_name) < 1 or len(first_name) >= 50:
+        firstname_error = "First Name must be between 1 and 50 characters."
 
-    if len(last_name)<1 or len(last_name)>=50:
+    if len(last_name) < 1 or len(last_name) >= 50:
         lastname_error = "Last Name must be between 1 and 50 characters."
 
     regex = r"(.+)@(.+)\.(.+)"
     if not re.match(regex, email):
-        email_error="Not a valid email address."
+        email_error = "Not a valid email address."
 
-    if len(password)<3 or len(password)>=50:
+    if len(password) < 3 or len(password) >= 50:
         password_error = "Password must be between 3 and 50 characters."
 
     if password != repeat_password:
-        repeat_password_error="Passwords do not match."
+        repeat_password_error = "Passwords do not match."
 
         # to check if email is unique and add users to mysql if unique :
 
     if not any((email_error, password_error, firstname_error, lastname_error, repeat_password_error)):
         user_params = (email,)
-        result = query_db(f"SELECT Email from users WHERE Email=%s",user_params)
+        result = query_db(f"SELECT Email from users WHERE Email=%s", user_params)
         if result:
             email_error = "This email already exists, put a new email."
         else:
@@ -268,7 +253,6 @@ def form_post(request: Request,
             user_data = query_db(add_user, user_data, commit=True)
             print(f"This is the user data afetr sign up: {user_data}")
             print(type(user_data))
-
 
             # Return a success message to the user
             # access_token = create_access_token({"sub": email})
@@ -284,32 +268,28 @@ def form_post(request: Request,
 
             return response
 
-
-
     # request = fastapi.Request(scope=request.scope)
     return templates.TemplateResponse('sign_up_page.html', {'request': request,
-                                                            "first_name":first_name,
-                                                            "firstname_error":firstname_error,
-                                                            "last_name":last_name,
-                                                            "lastname_error":lastname_error,
+                                                            "first_name": first_name,
+                                                            "firstname_error": firstname_error,
+                                                            "last_name": last_name,
+                                                            "lastname_error": lastname_error,
                                                             "email": email,
                                                             "email_error": email_error,
                                                             "password_error": password_error,
                                                             "repeat_password_error": repeat_password_error})
 
 
-
-
 @app.post("/uploadads")
 async def upload_ad(
-    request: Request,
-    title: str = Form(...),
-    photo: UploadFile = File(...),
-    price: float = Form(...),
-    negotiation: bool = Form(False),
-    condition: str = Form(...),
-    description: str = Form(...),
-    phone: str = Form(...)
+        request: Request,
+        title: str = Form(...),
+        photo: UploadFile = File(...),
+        price: float = Form(...),
+        negotiation: bool = Form(False),
+        condition: str = Form(...),
+        description: str = Form(...),
+        phone: str = Form(...)
 
 ):
     access_token = request.cookies.get("access_token")
@@ -318,7 +298,6 @@ async def upload_ad(
         username, user_id = get_username_and_id_by_email(email)
     else:
         return RedirectResponse(url=f"/forbidden.html", status_code=403)
-
 
     # Get the user ID of the logged-in user
     # user_id = get_user_id_from_email(email)
@@ -330,7 +309,6 @@ async def upload_ad(
 
     # Construct the filename with the UUID and file extension
     filename = f"{photo_uuid}.{extension}"
-
 
     # Save the uploaded file
     file_data = await photo.read()
@@ -357,7 +335,6 @@ async def upload_ad(
 
     ad_id = query_db(insert_query, insert_values, commit=True, get_last_id=True)
 
-
     response = RedirectResponse(url=f"/details?id={ad_id}", status_code=303)
     return response
 
@@ -369,10 +346,11 @@ async def templateHome(request: Request):
         email = get_email_from_token(access_token)
         username, user_id = get_username_and_id_by_email(email)
         return templates.TemplateResponse("uploadads.html",
-                                      {"request": request, "username": username})
+                                          {"request": request, "username": username})
     else:
         return templates.TemplateResponse("detailsOfAds.html",
                                           {"request": request, "username": None})
+
 
 # get method to get the page which shows email and password box and login button
 @app.get("/login")
@@ -381,13 +359,13 @@ async def templateHome(request: Request):
     html_content = template.render(data={})
     return HTMLResponse(content=html_content, status_code=200)
 
+
 # post method for login page to verify in data base if email and password are same :
 @app.post("/login")
-def login(request: Request,password: str = Form(""),email: str = Form("")):
-    user_params=(email,)
-    result=query_db("SELECT IdUser,FirstName,LastName,Password from users WHERE Email=%s",user_params)
-    ########################################################
-    if len(result)==0:
+def login(request: Request, password: str = Form(""), email: str = Form("")):
+    user_params = (email,)
+    result = query_db("SELECT IdUser,FirstName,LastName,Password from users WHERE Email=%s", user_params)
+    if len(result) == 0:
         login_error = "Incorrect email or password."
         return templates.TemplateResponse("login_page.html", {"request": request, "login_error": login_error})
     else:
@@ -404,12 +382,12 @@ def login(request: Request,password: str = Form(""),email: str = Form("")):
     if bcrypt.hashpw(password.encode(), hashed.encode()) == hashed.encode():
         access_token = create_access_token({"sub": email})
         response = RedirectResponse(url="/home", status_code=303)
-        #response = Response()
+        # response = Response()
         response.set_cookie(
             key="access_token",
             value=f"Bearer {access_token}",
             httponly=True,
-            max_age=ACCESS_TOKEN_EXPIRE_MINUTES*60
+            max_age=ACCESS_TOKEN_EXPIRE_MINUTES * 60
         )
         return response
     else:
@@ -424,12 +402,13 @@ async def logout(request: Request, response: Response):
     response.delete_cookie(key="access_token")
     return response
 
+
 @app.post("/delete_ad/{ad_id}")
-def deleting_ad(ad_id:int, response: Response, request: Request):
+def deleting_ad(ad_id: int, response: Response, request: Request):
     user_params = (ad_id,)
     result = query_db("SELECT * from ads where idad = %s", user_params)
     access_token = request.cookies.get("access_token")
-    
+
     if access_token:
         email = get_email_from_token(access_token)
         username, user_id = get_username_and_id_by_email(email)
@@ -443,9 +422,9 @@ def deleting_ad(ad_id:int, response: Response, request: Request):
             photo_filename = result[0].get('photo')
             query_db("DELETE FROM ads where idad = %s", user_params, commit=True)
 
-            #deleting the photo from uploads :
+            # deleting the photo from uploads :
             if photo_filename:
-                photo_path = os.path.join("uploads",photo_filename)
+                photo_path = os.path.join("uploads", photo_filename)
                 if os.path.exists(photo_path):
                     os.remove(photo_path)
 
@@ -469,8 +448,8 @@ def edit_ad(ad_id: int, request: Request):
         user_id_from_ad = result[0].get('userID')
         if user_id == user_id_from_ad:
             # result = query_db("SELECT * FROM ads WHERE idad=%s", user_params)
-                return templates.TemplateResponse("editablepage.html",
-                                                  {"request": request, "username": username, "data": result[0]})
+            return templates.TemplateResponse("editablepage.html",
+                                              {"request": request, "username": username, "data": result[0]})
         if not result:
             return templates.TemplateResponse("404.html",
                                               {"request": request, "username": username}, status_code=404)
@@ -480,16 +459,16 @@ def edit_ad(ad_id: int, request: Request):
 
 @app.post("/editablepage/{ad_id}")
 def editing_ad(
-    ad_id: int,
-    response: Response,
-    request: Request,
-    title: str = Form(...),
-    photo: UploadFile = File(None),
-    price: float = Form(...),
-    negotiation: bool = Form(False),
-    condition: str = Form(...),
-    description: str = Form(...),
-    #phone: str = Form(...)
+        ad_id: int,
+        response: Response,
+        request: Request,
+        title: str = Form(...),
+        photo: UploadFile = File(None),
+        price: float = Form(...),
+        negotiation: bool = Form(False),
+        condition: str = Form(...),
+        description: str = Form(...),
+        # phone: str = Form(...)
 ):
     user_params = (ad_id,)
     result = query_db("SELECT * from ads WHERE idad = %s", user_params)
@@ -511,23 +490,18 @@ def editing_ad(
             description = description.strip()
             photo_name = result[0]["photo"]
             photo_data = photo.file.read()
-            #phone = phone.strip()
+            # phone = phone.strip()
             if (
-                title != result[0]["title"]
-                or price != result[0]["price"]
-                or negotiation != result[0]["negotiation"]
-                or condition != result[0]["condition"]
-                or description != result[0]["description"]
-                #or phone != result[0]["phone"]
-                or photo_data
+                    title != result[0]["title"]
+                    or price != result[0]["price"]
+                    or negotiation != result[0]["negotiation"]
+                    or condition != result[0]["condition"]
+                    or description != result[0]["description"]
+                    # or phone != result[0]["phone"]
+                    or photo_data
             ):
                 # Save the new photo if provided
                 if photo_data:
-                    # Generate a random file name for the uploaded photo
-                    # file_name, file_extension = os.path.splitext(photo.filename)
-                    # photo_name = f"{ad_id}{file_extension}"
-
-                    # photo_path = os.path.join(f"uploads/{photo_name}")
                     photo_path = os.path.join("uploads", photo_name)
 
                     with open(photo_path, "wb") as f:
@@ -553,12 +527,11 @@ def editing_ad(
         response = RedirectResponse(url="/login", status_code=303)
     return response
 
+
 @app.get("/myads")  # getting only ads of the same logged in user
 async def read_ad(request: Request):
     access_token = request.cookies.get("access_token")
     username = None
-    # result = query_db("SELECT * from ads")
-    # access_token = request.cookies.get("access_token")
     username = None
     if access_token is not None:
         email = get_email_from_token(access_token)
@@ -571,25 +544,21 @@ async def read_ad(request: Request):
 
 
 @app.get("/searchads")
-def match_keywords(keywords:str, request:Request):
+def match_keywords(keywords: str, request: Request):
     query = f"SELECT * FROM ads WHERE title LIKE '%{keywords}%' OR description LIKE '%{keywords}%'"
     results = query_db(query)
     print(f"Results : {results}")
 
     access_token = request.cookies.get("access_token")
-    username=None
+    username = None
     if access_token is not None:
         email = get_email_from_token(access_token)
         username, user_id = get_username_and_id_by_email(email)
 
     # filtering results :
-    matched_ads = [ad for ad in results if keywords.lower() in ad["title"].lower() or keywords.lower() in ad["description"].lower()]
+    matched_ads = [ad for ad in results if
+                   keywords.lower() in ad["title"].lower() or keywords.lower() in ad["description"].lower()]
     print(f"Matched ads : {matched_ads}")
 
     return templates.TemplateResponse("displayingads.html",
-                                      {"request": request,"username":username,"data": matched_ads})
-
-
-
-
-
+                                      {"request": request, "username": username, "data": matched_ads})
