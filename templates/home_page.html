@@ -1,46 +1,15 @@
 <!DOCTYPE html>
 {% extends "templateHome.html" %}
 {% block main %}
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
-<head>
-<title>{{ title }}</title>
-
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
- <br/>
-<style type="text/css">
-<!--
-	p {margin: 0; padding: 0;}	.ft10{font-size:33px;font-family:Times;color:#ffffff;}
-	.ft11{font-size:17px;font-family:Times;color:#ffffff;}
-	.ft12{font-size:16px;font-family:Times;color:#ffffff;}
-	.ft13{font-size:21px;font-family:Times;color:#000000;}
-	.ft14{font-size:23px;font-family:Times;color:#cc86c8;}
-	.ft15{font-size:74px;font-family:Times;color:#ffffff;}
-	.ft16{font-size:23px;font-family:Times;color:#ffffff;}
-	.ft17{font-size:23px;font-family:Times;color:#000000;}
-	.ft18{font-size:33px;font-family:Times;color:#cc86c8;}
-	.ft19{font-size:74px;line-height:83px;font-family:Times;color:#ffffff;}
--->
-</style>
-</head>
-<body bgcolor="#A0A0A0" vlink="blue" link="blue">
-<div id="page1-div" style="position:relative;width:1440px;height:899px;">
-<!--<img width="1440" height="899" src="../../../../Downloads/Blue%20Holographic%20Business%20Website%20Desktop%20Prototype%20(1)/target001.png" alt="background image"/>-->
-<!--<p style="position:absolute;top:85px;left:90px;white-space:nowrap" class="ft10"><b>RESALE</b></p>-->
-<p style="position:absolute;top:400px;left:90px;white-space:nowrap" class="ft11">THIS IS HOME PAGE. This&#160;is&#160;a&#160;website&#160;that&#160;lets&#160;you&#160;sell&#160;old&#160;items&#160;that&#160;you</p>
-<p style="position:absolute;top:420px;left:90px;white-space:nowrap" class="ft11">have.&#160;You&#160;can&#160;also&#160;check&#160;other&#160;people's&#160;products&#160;and</p>
-<p style="position:absolute;top:440px;left:90px;white-space:nowrap" class="ft11">buy&#160;whatever&#160;you&#160;want.&#160;Sign&#160;up&#160;now&#160;to&#160;sell&#160;products.</p>
-<p style="position:absolute;top:700px;left:90px;white-space:nowrap" class="ft12">www.resaleyourproducts.com&#160;|&#160;@resalenow</p>
-<p style="position:absolute;top:550px;left:131px;white-space:nowrap" class="ft13"><b><a href="/signup">SIGN&#160;UP&#160;NOW</a></b></p>
-
-<p style="position:absolute;top:80px;left:90px;white-space:nowrap" class="ft19">Sell&#160;your<br/>products<br/>easily&#160;here.</p>
-<!--<p style="position:absolute;top:93px;left:889px;white-space:nowrap" class="ft16">About&#160;Us</p>-->
-<!--<p style="position:absolute;top:93px;left:1229px;white-space:nowrap" class="ft17">Log&#160;in</p>-->
-<!--<p style="position:absolute;top:93px;left:1022px;white-space:nowrap" class="ft16">Contact&#160;Us</p>-->
-<!--<p style="position:absolute;top:86px;left:230px;white-space:nowrap" class="ft18">ONLINE&#160;SHOP</p>-->
-<!--<p style="position:absolute;top:93px;left:742px;white-space:nowrap" class="ft16">Products</p>-->
+<div style="text-align: center;">
+  <h1 class="heading_text_homepage">SELLING YOUR PRODUCTS MADE EASY</h1>
+  <p class="homepage_paragraph">Welcome to our online marketplace where you can buy and sell new or pre-loved items.
+    Discover great deals on a wide range of products from fashion to furniture. Whether you're looking to make some
+    extra cash or find your next treasure, we've got you covered. Join our community of buyers and sellers today!</p>
+  {% if not username %}
+  <p><a class="sigup_link_homepage" href="/signup" style="font-size: 17px;">SIGN UP NOW</a></p>
+  {% endif %}
 </div>
-</body>
-</html>
 {% endblock %}
 
 

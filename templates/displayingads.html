@@ -1,43 +1,42 @@
-
+<!--products page : -->
 <!DOCTYPE html>
 {% extends "templateHome.html" %}
 {% block main %}
 
-<html>
-<head>
-    <title>Advertisements</title>
-</head>
-<body>
-    <h1>Advertisements</h1>
+    <title>ADVERTISEMENTS</title>
+
+
+
+<div id="products-page-div">
+
+
+    <h1 style="color: #ec7505 ; text-align: center;">ADVERTISEMENTS</h1>
 
     {% for row in data %}
-    <div>
-        <a href="details?id={{ row['idad'] }}">
-            <h2>{{ row['Title'] }}</h2>
-            <img src="{{ row['Photo'] }}" alt="Ad photo" width="200">
+    <div class="products_page_content">
+        <br>
+        <a href="details?id={{ row['idad'] }}" style="text-decoration: none;">
+            <h2 style="color: #19a6fd;"> {{ row['title'] }} </h2>
+            <img src="uploads/{{ row['photo'] }}" alt="Ad photo" width="200">
 
-        <p><strong>Price:</strong> {{ row['Price'] }}</p>
-        <p><strong>Condition:</strong> {{ row['Condition'] }}</p>
-        <p><strong>Date Added:</strong> {{ row['Date added'] }}</p>
-
+            <p><strong>Price:</strong> {{ row['price'] }}</p>
+            <p><strong>Condition:</strong> {{ row['condition'] }}</p>
+            <p><strong>Date Added:</strong> {{ row['date_added'] }}</p>
+            <hr>
         </a>
 
         <div id="details-{{ row['idad'] }}" style="display: none;">
-            <p><strong>Negotiation:</strong> {{ row['Negotiation'] }}</p>
-            <p><strong>Description:</strong> {{ row['Description'] }}</p>
+            <p><strong>Negotiation:</strong> {{ row['negotiation'] }}</p>
+            <p><strong>Description:</strong> {{ row['description'] }}</p>
 
-            <p><strong>Phone Number:</strong> {{ row['Phone Number'] }}</p>
-            <p><strong>Email:</strong> {{ row['Email'] }}</p>
+            <p><strong>Phone Number:</strong> {{ row['phone_number'] }}</p>
+            <p><strong>Email:</strong> {{ row['email'] }}</p>
+            </br>
         </div>
     </div>
     {% endfor %}
 
-</body>
-</html>
+
+</div>
+
 {% endblock %}
-
-
-
-
-
-

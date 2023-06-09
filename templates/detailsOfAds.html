@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% extends "templateHome.html" %}
 {% block main %}
+    <div id="products-page-div">
 <html>
 <head>
     <title>Advertisement Details</title>
@@ -8,27 +9,35 @@
 <body>
     <script src="static/script.js"></script>
 
-    <h1>Advertisement Details</h1>
+    <h1 style="color: #ec7505 ; text-align: center; font-size: 25px">ADVERTISEMENT DETAILS : </h1>
     <div>
-        <h2>{{ data['Title'] }}</h2>
-        <img src="" alt="Ad photo" width="200">
-        <p><strong>Price:</strong> {{ data['Price'] }}</p>
-        <p><strong>Condition:</strong> {{ data['Condition'] }}</p>
-        <p><strong>Date Added:</strong> {{ data['Date Added'] }}</p>
-        <p><strong>Negotiation:</strong> {{ data['Negotiation'] }}</p>
-        <p><strong>Description:</strong> {{ data['Description'] }}</p>
-        <button onclick="toggleDetails({{ data['idad'] }})">View Contact Info</button>
+        <h2>{{ data['title'] }}</h2>
+        <img src="/uploads/{{ data['photo'] }}" alt="Ad photo" width="300">
+
+        {% if opened_by_owner==True %}
+        <br> <button class="modern_button" onclick="deleteAd({{ data['idad'] }})">Delete Ad</button>
+        <button class="modern_button" onclick="editAd({{ data['idad'] }})">Edit Ad</button>
+        {% endif %}
+
+        <p><strong>Price(PLN):</strong> <span style="color: white;">{{ data['price'] }}</span></p>
+        <p><strong>Condition:</strong> <span style="color: white;">{{ data['condition'] }}</span></p>
+        <p><strong>Date Added:</strong> <span style="color: white;">{{ data['date_added'] }}</span></p>
+        <p><strong>Negotiation:</strong> <span style="color: white;">{{ "Yes" if data['negotiation']==1 else "No" }}</span></p>
+        <p><strong>Description:</strong> <span style="color: white;">{{ data['description'] }}</span></p>
+        <button class = "modern_button" onclick="toggleDetails({{ data['idad'] }})">View Contact Info</button>
     </div>
 
 
     <div id="details-{{ data['idad'] }}"style="display:none">
-        <p><strong>Phone Number:</strong> {{ data['Phone Number'] }}</p>
-        <p><strong>Email:</strong> {{ data['Email'] }}</p>
+        <p><strong>Phone Number:</strong> <span style="color: white;">{{ data['phone_number'] }}</span></p>
+        <p><strong>Email:</strong> <span style="color: white;">{{ ad_email }}</span></p>
     </div>
 
 
 </body>
 </html>
+        </div>
 {% endblock %}
+
 
 

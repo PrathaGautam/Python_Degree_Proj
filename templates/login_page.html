@@ -1,27 +1,35 @@
 {% extends "templateHome.html" %}
 {% block main %}
-<html lang="en">
-<div style="position:relative;left:20px;top:50px;right:20px;">
-<!--<head>-->
-<!--    <meta charset="UTF-8">-->
-<!--    <title>CONTACT US INFORMATION</title>-->
-<!--</head>-->
+<head>
+	<title>Log In Form</title>
+	<!--<script src="../static/signup_validation.js"></script> -->
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<div class="form-container" style="margin-top: 50px;">
+<form action="/login" method="post">
+  <p>
+    <label class="form-label" for="email">Email:</label>
+    <input class="form-input" type="text" id="email" name="email">
+  </p>
+  <p>
+    <label class="form-label" for="password">Password:</label>
+    <input class="form-input" type="password" id="password" name="password">
 
-<body>
-<div>
-  <h2>This is login page.</h2>
-  <p>LOG IN HERE</p>
-</div>
-Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-when an unknown printer took a galley of type and scrambled it to make a type
-specimen book. It has survived not only five centuries, but also the leap into
-electronic typesetting, remaining essentially unchanged. It was popularised in
-the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-and more recently with desktop publishing software like Aldus PageMaker
-including versions of Lorem Ipsum.
-</body>
-</div>
-</html>
+
+
+  </p>
+
+  <p>
+    <button id = "submit_button" class="form-submit" type="LogIn">LogIn</button>
+    {% if login_error %}
+      <span class="error">{{ login_error }}</span>
+  {% endif %}
+  </p>
+
+</form>
+
+
+
+
 
 {% endblock %}

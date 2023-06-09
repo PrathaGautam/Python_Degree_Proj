@@ -1,0 +1,29 @@
+{% extends "templateHome.html" %}
+{% block main %}
+
+<html>
+<script>
+    const signUpButton = document.getElementById('submit_button');
+
+signUpButton.addEventListener('click', function()
+{
+  // Redirect the user to the new page
+  window.location.href = 'http://127.0.0.1:8000/signupButton';
+});
+
+</script>
+
+<head>
+    <title>Sign Up Successful Page</title>
+</head>
+<body>
+
+    <!-- Used to display heading content -->
+    <h1>SIGN UP SUCCESSFUL!</h1>
+
+    <!-- Used to display paragrapg content -->
+    <p>You have successfully signed up. To log in, go to the Log In page and enter your email and password. </p>
+</body>
+
+</html>
+{% endblock %}
